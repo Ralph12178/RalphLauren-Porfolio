@@ -2,13 +2,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#09071b">
 <title>Ralph Lauren Gregorio | UI/UX Designer</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* Silver Wolf-inspired gaming font */
+body {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+
+h1, h2, h3,
+.logo,
+nav a,
+button,
+.btn {
+    font-family: 'Orbitron', sans-serif;
+}
+
 
 :root {
   --bg: #080719;
@@ -35,7 +50,7 @@ body {
     radial-gradient(ellipse at 0% 50%,rgba(70,27,150,.15),transparent 32%),
     var(--bg);
   color: var(--white);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Orbitron', sans-serif;
 }
 
 a {
@@ -202,11 +217,10 @@ h1 {
   border-radius: inherit;
 }
 
-/* ==================================================
-   PROFILE IMAGE
-   Replace images/profile.png with your own image.
-   Keep the image inside the repository's images folder.
-   ================================================== */
+
+
+
+  
 
 .avatar {
   position: relative;
@@ -762,7 +776,7 @@ h1 {
 }
 
 
-/* Animated purple cursor (desktop/laptop only) */
+
 .custom-cursor {
   position: fixed;
   top: 0;
@@ -1025,6 +1039,70 @@ body.custom-cursor-enabled button {
     height: 20px;
   }
 }
+
+  
+
+/* ========================================
+   SILVER WOLF - CYBER TETRIS BACKGROUND
+   Honkai: Star Rail inspired
+======================================== */
+
+#tetris-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.48;
+}
+
+/* Keep portfolio content above the animation */
+body > header,
+body > main,
+body > footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Cyberpunk atmosphere */
+body {
+  background-color: #080719;
+  background-image:
+    radial-gradient(
+      ellipse at 80% 15%,
+      rgba(120, 45, 255, 0.20),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 15% 80%,
+      rgba(0, 210, 255, 0.09),
+      transparent 40%
+    ),
+    linear-gradient(
+      rgba(8, 7, 25, 0.88),
+      rgba(8, 7, 25, 0.94)
+    );
+}
+
+/* Neon cyber glow for project cards */
+.project,
+.skill,
+.panel,
+.cta {
+  backdrop-filter: blur(3px);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  #tetris-bg {
+    opacity: 0.18;
+  }
+}
+
+
+
 </style>
 </head>
 
@@ -1521,6 +1599,284 @@ for (let i = 0; i < 84; i++) {
   const cell = document.createElement('i');
   heat.appendChild(cell);
 }
+
+
+
+/* ========================================
+   SILVER WOLF CYBER TETRIS ANIMATION
+======================================== */
+
+(() => {
+  const canvas = document.getElementById("tetris-bg");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const colors = [
+    "#B967FF", // Neon violet
+    "#43E8FF", // Cyber cyan
+    "#FF62D8", // Neon pink
+    "#7D8CFF", // Digital blue
+    "#E7C6FF"  // Silver lavender
+  ];
+
+  // Tetris tetromino shapes
+  const shapes = [
+    [[1, 1, 1, 1]],
+    [[1, 1], [1, 1]],
+    [[0, 1, 0], [1, 1, 1]],
+    [[1, 0, 0], [1, 1, 1]],
+    [[0, 0, 1], [1, 1, 1]],
+    [[1, 1, 0], [0, 1, 1]],
+    [[0, 1, 1], [1, 1, 0]]
+  ];
+
+  let width = 0;
+  let height = 0;
+  let pixelRatio = 1;
+  let blocks = [];
+  let particles = [];
+  let animationFrame;
+  let lastSpawn = 0;
+  let lastParticle = 0;
+
+  const reducedMotion =
+    window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function resize() {
+    pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    canvas.width = Math.floor(width * pixelRatio);
+    canvas.height = Math.floor(height * pixelRatio);
+
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+    // Keep the animation lightweight on small screens
+    blocks = blocks.slice(0, width < 650 ? 9 : 16);
+    particles = particles.slice(0, 35);
+  }
+
+  function spawnBlock() {
+    const shape = shapes[
+      Math.floor(Math.random() * shapes.length)
+    ];
+
+    const cell = width < 650 ? 11 : 14;
+    const color = colors[
+      Math.floor(Math.random() * colors.length)
+    ];
+
+    const blockWidth = shape[0].length * cell;
+
+    blocks.push({
+      shape,
+      x: Math.random() * Math.max(1, width - blockWidth),
+      y: -45,
+      cell,
+      color,
+      speed: 0.35 + Math.random() * 0.65,
+      rotation: (Math.random() - 0.5) * 0.12,
+      alpha: 0.22 + Math.random() * 0.30,
+      phase: Math.random() * Math.PI * 2
+    });
+  }
+
+  function spawnParticle() {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: 1 + Math.random() * 2,
+      life: 0,
+      duration: 100 + Math.random() * 140,
+      color: colors[
+        Math.floor(Math.random() * colors.length)
+      ]
+    });
+  }
+
+  function drawGrid() {
+    ctx.save();
+    ctx.strokeStyle = "rgba(144, 94, 255, 0.055)";
+    ctx.lineWidth = 1;
+
+    const size = 38;
+
+    for (let x = 0; x < width; x += size) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+      ctx.stroke();
+    }
+
+    for (let y = 0; y < height; y += size) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  }
+
+  function drawBlock(block, time) {
+    const { shape, x, y, cell, color, alpha } = block;
+
+    ctx.save();
+    ctx.translate(
+      x + Math.sin(time * 0.0006 + block.phase) * 12,
+      y
+    );
+
+    ctx.rotate(block.rotation);
+
+    ctx.globalAlpha = alpha;
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = color;
+
+    shape.forEach((row, rowIndex) => {
+      row.forEach((value, colIndex) => {
+        if (!value) return;
+
+        const bx = colIndex * cell;
+        const by = rowIndex * cell;
+
+        // Neon block outline
+        ctx.fillStyle = color;
+        ctx.fillRect(bx, by, cell - 2, cell - 2);
+
+        // Dark center gives the blocks a cyber HUD look
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = "rgba(8, 7, 25, 0.68)";
+        ctx.fillRect(
+          bx + 2,
+          by + 2,
+          cell - 6,
+          cell - 6
+        );
+
+        // Pixel highlight
+        ctx.fillStyle = color;
+        ctx.globalAlpha = alpha * 0.7;
+        ctx.fillRect(bx + 3, by + 3, 3, 2);
+        ctx.globalAlpha = alpha;
+        ctx.shadowBlur = 12;
+      });
+    });
+
+    ctx.restore();
+  }
+
+  function drawParticles() {
+    particles.forEach((particle) => {
+      particle.life++;
+
+      const fade = Math.sin(
+        Math.PI * particle.life / particle.duration
+      );
+
+      ctx.globalAlpha = Math.max(0, fade) * 0.65;
+      ctx.fillStyle = particle.color;
+      ctx.fillRect(
+        particle.x,
+        particle.y,
+        particle.size,
+        particle.size
+      );
+    });
+
+    ctx.globalAlpha = 1;
+
+    particles = particles.filter(
+      particle => particle.life < particle.duration
+    );
+  }
+
+  function drawScanline(time) {
+    // A faint moving digital scanline
+    const scanY = (time * 0.025) % (height + 100) - 50;
+
+    ctx.save();
+    ctx.globalAlpha = 0.10;
+    ctx.fillStyle = "#A967FF";
+    ctx.fillRect(0, scanY, width, 1);
+    ctx.restore();
+  }
+
+  function animate(time) {
+    ctx.clearRect(0, 0, width, height);
+
+    drawGrid();
+
+    if (time - lastSpawn > (width < 650 ? 1500 : 1050)) {
+      if (blocks.length < (width < 650 ? 9 : 16)) {
+        spawnBlock();
+      }
+      lastSpawn = time;
+    }
+
+    if (time - lastParticle > 220) {
+      if (particles.length < 35) {
+        spawnParticle();
+      }
+      lastParticle = time;
+    }
+
+    blocks.forEach((block) => {
+      drawBlock(block, time);
+      block.y += block.speed;
+
+      // Slowly rotate the falling pieces
+      block.rotation += 0.0004;
+    });
+
+    blocks = blocks.filter(
+      block => block.y < height + 100
+    );
+
+    drawParticles();
+    drawScanline(time);
+
+    if (!reducedMotion.matches) {
+      animationFrame = requestAnimationFrame(animate);
+    }
+  }
+
+  function start() {
+    cancelAnimationFrame(animationFrame);
+    resize();
+
+    if (reducedMotion.matches) {
+      // Display a static cyber grid when reduced motion is requested
+      ctx.clearRect(0, 0, width, height);
+      drawGrid();
+
+      for (let i = 0; i < 5; i++) {
+        spawnBlock();
+        blocks[i].y = Math.random() * height;
+        drawBlock(blocks[i], 0);
+      }
+
+      return;
+    }
+
+    animationFrame = requestAnimationFrame(animate);
+  }
+
+  window.addEventListener("resize", resize);
+
+  reducedMotion.addEventListener?.("change", start);
+
+  start();
+})();
+
+
+  
 </script>
 
 </body>
