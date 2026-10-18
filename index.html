@@ -1,0 +1,1527 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09071b">
+<title>Ralph Lauren Gregorio | UI/UX Designer</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #080719;
+  --panel: #0e0b27;
+  --panel2: #130d32;
+  --line: rgba(157,102,255,.25);
+  --violet: #9b4dff;
+  --pink: #e17bff;
+  --lav: #d9c4ff;
+  --muted: #aaa5ca;
+  --white: #f7f3ff;
+  --glow: 0 0 35px rgba(142,52,255,.18);
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 85% 0%,rgba(106,30,196,.28),transparent 36%),
+    radial-gradient(ellipse at 0% 50%,rgba(70,27,150,.15),transparent 32%),
+    var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.wrap {
+  width: min(1140px,91%);
+  margin: auto;
+}
+
+.nav {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(176,119,255,.16);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(8,7,25,.86);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.monogram {
+  font: 700 25px 'Space Grotesk';
+  color: #e5b4ff;
+  text-shadow: 0 0 18px #a94dff;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  font-size: 12px;
+  color: #c9c1e6;
+}
+
+.links a:hover,
+.links a.active {
+  color: #e5a8ff;
+}
+
+.github-btn,
+.pill-btn {
+  border: 1px solid #b967ff;
+  border-radius: 999px;
+  padding: 10px 15px;
+  background: linear-gradient(120deg,rgba(126,44,235,.26),rgba(43,21,91,.38));
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 0 18px rgba(146,57,255,.12);
+  transition: .2s;
+}
+
+.github-btn:hover,
+.pill-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 24px rgba(171,78,255,.32);
+}
+
+.hero {
+  min-height: 370px;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 30px;
+  padding: 45px 0 42px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero:after {
+  content: '';
+  position: absolute;
+  right: -100px;
+  top: -120px;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle,rgba(123,42,242,.2),transparent 68%);
+  pointer-events: none;
+}
+
+.eyebrow {
+  display: inline-flex;
+  border: 1px solid rgba(191,91,255,.5);
+  border-radius: 100px;
+  padding: 6px 13px;
+  font-size: 12px;
+  color: #f0caff;
+  background: rgba(113,41,193,.18);
+}
+
+h1, h2, h3, p {
+  margin-top: 0;
+}
+
+h1 {
+  font: 700 clamp(38px,5vw,61px)/1.02 'Space Grotesk';
+  letter-spacing: -2px;
+  margin: 16px 0 13px;
+}
+
+.gradient-text {
+  background: linear-gradient(100deg,#f0d9ff,#ad65ff 55%,#ed8eff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subline {
+  color: #d7c9f7;
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+
+.intro {
+  color: #b9b2d5;
+  line-height: 1.8;
+  font-size: 13px;
+  max-width: 460px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.hero-art {
+  height: 300px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orb {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 42% 58% 62% 38% / 40% 42% 58% 60%;
+  background: linear-gradient(145deg,#a94dff,#3e1c8b 55%,#120a31);
+  box-shadow: 0 0 0 1px rgba(214,157,255,.55),0 0 70px rgba(131,44,255,.35);
+  transform: rotate(-9deg);
+}
+
+.orb:before {
+  content: '';
+  position: absolute;
+  inset: 13px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: inherit;
+}
+
+/* ==================================================
+   PROFILE IMAGE
+   Replace images/profile.png with your own image.
+   Keep the image inside the repository's images folder.
+   ================================================== */
+
+.avatar {
+  position: relative;
+  z-index: 1;
+  width: 225px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 45%;
+}
+
+.profile-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,.4));
+}
+
+
+.orbit {
+  position: absolute;
+  width: 330px;
+  height: 90px;
+  border: 2px solid #d27aff;
+  border-radius: 50%;
+  transform: rotate(-22deg);
+  z-index: 2;
+  box-shadow: 0 0 18px rgba(195,94,255,.5);
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  color: #dca2ff;
+  font-size: 25px;
+}
+
+.star-a {
+  right: 10%;
+  top: 10%;
+}
+
+.star-b {
+  left: 11%;
+  bottom: 10%;
+}
+
+.section {
+  padding: 24px 0 15px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 600 21px 'Space Grotesk';
+  margin: 0 0 18px;
+}
+
+.section-title .ico {
+  color: #db8aff;
+  font-size: 21px;
+}
+
+.overview {
+  display: grid;
+  grid-template-columns: 1.1fr 1.2fr .72fr;
+  gap: 22px;
+  padding: 24px 0;
+  border-top: 1px solid rgba(174,115,255,.17);
+  border-bottom: 1px solid rgba(174,115,255,.17);
+}
+
+.about {
+  padding-right: 20px;
+  border-right: 1px solid rgba(174,115,255,.17);
+}
+
+.about p {
+  font-size: 12px;
+  color: #c2bbdb;
+  line-height: 1.85;
+}
+
+.chips {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.chip {
+  font-size: 10px;
+  color: #d8c9fa;
+  border: 1px solid rgba(157,105,255,.27);
+  background: rgba(100,56,181,.12);
+  border-radius: 999px;
+  padding: 7px 10px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+}
+
+.skill {
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: linear-gradient(145deg,rgba(27,17,63,.75),rgba(11,9,31,.72));
+  padding: 15px 13px;
+  min-height: 130px;
+}
+
+.skill-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg,#d27aff,#7134dc);
+  color: #16092d;
+  font-size: 17px;
+  margin-bottom: 12px;
+  box-shadow: 0 0 18px rgba(172,82,255,.2);
+}
+
+.skill h3 {
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+.skill p {
+  font-size: 10px;
+  line-height: 1.6;
+  color: #aaa2cb;
+  margin: 0;
+}
+
+.cta {
+  border: 1px solid #8c43ed;
+  border-radius: 17px;
+  padding: 22px 19px;
+  background: radial-gradient(circle at 100% 0%,rgba(123,34,219,.45),transparent 55%),linear-gradient(150deg,#17103b,#0e0927);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta h3 {
+  font: 600 20px/1.3 'Space Grotesk';
+  margin-bottom: 12px;
+}
+
+.cta p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #c2b9df;
+}
+
+.cta:after {
+  content: '';
+  position: absolute;
+  width: 130px;
+  height: 45px;
+  right: -22px;
+  bottom: -17px;
+  transform: rotate(-20deg);
+  border-radius: 50%;
+  background: #7f32e8;
+  filter: blur(20px);
+  opacity: .7;
+}
+
+.projects {
+  padding: 24px 0 16px;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 145px 1fr;
+  gap: 18px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  background: linear-gradient(115deg,rgba(20,14,49,.94),rgba(10,8,29,.95));
+  transition: .2s;
+}
+
+.project:hover {
+  border-color: rgba(192,120,255,.7);
+  transform: translateY(-3px);
+  box-shadow: var(--glow);
+}
+
+
+
+
+
+
+.project-art {
+  height: 200px;
+   width: 50%;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(circle at 75% 20%,rgba(207,111,255,.75),transparent 32%),linear-gradient(145deg,#2b145d,#100b29 55%,#5b20a6);
+  border: 1px solid rgba(203,137,255,.26);
+}
+
+.project-art.synced {
+  background: radial-gradient(circle at 70% 20%,rgba(216,110,255,.7),transparent 35%),linear-gradient(140deg,#35145b,#0b0924 60%,#7732d2);
+}
+
+.synced-project-image {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  display: block;
+}
+
+.project-art .symbol {
+  font: 700 38px 'Space Grotesk';
+  color: #f0d6ff;
+  text-shadow: 0 0 24px #bd6cff;
+}
+
+.project-art .screen {
+  width: 82%;
+  height: 72%;
+  border: 1px solid #9f62ff;
+  border-radius: 8px;
+  background: linear-gradient(145deg,#160e32,#080718);
+  box-shadow: 8px 8px 0 rgba(150,73,255,.3);
+  padding: 9px;
+}
+
+.screen-top {
+  height: 7px;
+  width: 45%;
+  background: #bd73ff;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.screen-line {
+  height: 5px;
+  border-radius: 5px;
+  background: rgba(184,136,255,.4);
+  margin: 7px 0;
+}
+
+.screen-line:nth-child(3) {
+  width: 75%;
+}
+
+.screen-line:nth-child(4) {
+  width: 56%;
+}
+
+.project h3 {
+  font: 600 17px 'Space Grotesk';
+  margin: 0 0 8px;
+}
+
+.type {
+  display: inline-block;
+  font-size: 10px;
+  color: #d8aaff;
+  border: 1px solid rgba(180,104,255,.35);
+  border-radius: 99px;
+  padding: 4px 8px;
+  margin-left: 7px;
+  vertical-align: middle;
+}
+
+.project p {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #bcb4d8;
+  margin-bottom: 10px;
+}
+
+.project-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.project-bottom .chips {
+  margin: 0;
+}
+
+.project-bottom .chip {
+  padding: 5px 8px;
+}
+
+.project-link {
+  font-size: 11px;
+  color: #d49aff;
+  white-space: nowrap;
+}
+
+.lower {
+  display: grid;
+  grid-template-columns: .95fr 1.3fr .8fr;
+  gap: 15px;
+  padding: 7px 0 30px;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(145deg,rgba(17,12,42,.92),rgba(10,8,29,.96));
+  padding: 18px;
+}
+
+.panel-title {
+  font: 600 16px 'Space Grotesk';
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.panel-title span {
+  color: #dc91ff;
+}
+
+.school {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.school-logo {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid #d3a3ff;
+  background: linear-gradient(140deg,#f5eaff,#c9a2ff);
+  color: #41127c;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.school strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.school small {
+  display: block;
+  font-size: 10px;
+  color: #b6aed4;
+  line-height: 1.6;
+}
+
+.github-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.github-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(140deg,#e3b3ff,#7028ce);
+  font-size: 21px;
+  color: #180b2c;
+}
+
+.github-head strong {
+  display: block;
+  font-size: 12px;
+}
+
+.github-head small {
+  font-size: 10px;
+  color: #a9a0cc;
+}
+
+.github-data {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 7px;
+}
+
+.stat {
+  border-right: 1px solid rgba(160,113,230,.2);
+  padding-right: 6px;
+}
+
+.stat:last-child {
+  border: 0;
+}
+
+.stat small {
+  display: block;
+  color: #a9a0cc;
+  font-size: 9px;
+  margin-bottom: 5px;
+}
+
+.stat strong {
+  font-size: 15px;
+  color: #e6c4ff;
+}
+
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(14,1fr);
+  gap: 3px;
+  margin-top: 14px;
+}
+
+.heatmap i {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: #211340;
+}
+
+.heatmap i:nth-child(5n),
+.heatmap i:nth-child(7n) {
+  background: #57239b;
+}
+
+.heatmap i:nth-child(4n+1) {
+  background: #7837ca;
+}
+
+.heatmap i:nth-child(11n) {
+  background: #bd63f5;
+}
+
+.contact-list {
+  display: grid;
+  gap: 13px;
+}
+
+.contact-list a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: #c9c0e3;
+  overflow-wrap: anywhere;
+}
+
+.contact-list a span {
+  font-size: 17px;
+  color: #d58aff;
+  flex-shrink: 0;
+}
+
+.contact-list a:hover {
+  color: #efcaff;
+}
+
+.footer {
+  border-top: 1px solid #7629bf;
+  background: linear-gradient(90deg,rgba(87,26,146,.14),transparent,rgba(87,26,146,.14));
+  padding: 21px 0 18px;
+}
+
+.footer-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.footer-name small {
+  display: block;
+  color: #a9a0cc;
+  margin-top: 5px;
+}
+
+.quote {
+  font-size: 11px;
+  color: #d9a3ff;
+  font-style: italic;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.socials {
+  display: flex;
+  gap: 13px;
+  color: #d9a3ff;
+}
+
+.socials a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(161,111,232,.14);
+  margin-top: 18px;
+  padding-top: 13px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 10px;
+  color: #938ab9;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 13px;
+  flex-wrap: wrap;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--line);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+
+/* Animated purple cursor (desktop/laptop only) */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(220, 145, 255, .95);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  background: rgba(155, 77, 255, .08);
+  box-shadow: 0 0 14px rgba(155, 77, 255, .35),
+              inset 0 0 10px rgba(225, 123, 255, .12);
+  transition: width .22s ease, height .22s ease, border-color .22s ease,
+              background .22s ease, box-shadow .22s ease, opacity .2s ease;
+}
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100000;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  background: #f0d9ff;
+  box-shadow: 0 0 12px #c879ff, 0 0 22px rgba(200, 121, 255, .8);
+}
+.custom-cursor.cursor-hover {
+  width: 48px;
+  height: 48px;
+  border-color: #f0baff;
+  background: rgba(190, 100, 255, .16);
+  box-shadow: 0 0 24px rgba(190, 100, 255, .55);
+}
+.custom-cursor.cursor-click {
+  width: 25px;
+  height: 25px;
+}
+body.custom-cursor-enabled,
+body.custom-cursor-enabled a,
+body.custom-cursor-enabled button {
+  cursor: none;
+}
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none !important;
+  }
+  body.custom-cursor-enabled,
+  body.custom-cursor-enabled a,
+  body.custom-cursor-enabled button {
+    cursor: auto;
+  }
+}
+
+
+@media(max-width:900px) {
+  .links {
+    gap: 13px;
+  }
+
+  .overview {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about {
+    border: 0;
+    padding: 0;
+  }
+
+  .cta {
+    grid-column: 1/-1;
+  }
+
+  .lower {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contact-panel {
+    grid-column: 1/-1;
+  }
+
+  .project {
+    grid-template-columns: 120px 1fr;
+  }
+
+  .project-art {
+    height: 130px;
+  }
+}
+
+@media(max-width:650px) {
+  .nav {
+    min-height: 65px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .links {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    padding: 18px 5%;
+    background: rgba(9,7,27,.98);
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .links.open {
+    display: flex;
+  }
+
+  .github-btn {
+    display: none;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 38px 0 20px;
+    gap: 0;
+  }
+
+  .hero-art {
+    height: 260px;
+    grid-row: 1;
+  }
+
+  .hero-copy {
+    grid-row: 2;
+  }
+
+  .orb {
+    width: 220px;
+    height: 220px;
+  }
+
+  .avatar {
+    height: 220px;
+    width: 200px;
+  }
+
+  .orbit {
+    width: 270px;
+    height: 75px;
+  }
+
+  .tag-one {
+    left: 4%;
+    top: 15%;
+  }
+
+  .tag-two {
+    right: 2%;
+    bottom: 14%;
+  }
+
+  h1 {
+    font-size: 44px;
+  }
+
+  .overview {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+  }
+
+  .skill {
+    padding: 12px 9px;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project {
+    grid-template-columns: 105px 1fr;
+    gap: 13px;
+    padding: 12px;
+  }
+
+  .project-art {
+    height: 118px;
+  }
+
+  .project h3 {
+    font-size: 15px;
+  }
+
+  .lower {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-panel {
+    grid-column: auto;
+  }
+
+  .footer-main {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .quote {
+    order: 3;
+    width: 100%;
+    text-align: left;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+
+  .footer-nav {
+    gap: 10px;
+  }
+}
+
+@media(max-width:390px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skill {
+    min-height: unset;
+  }
+
+  .project {
+    grid-template-columns: 1fr;
+  }
+
+  .project-art {
+    height: 150px;
+  }
+
+  .project-art .symbol {
+    font-size: 48px;
+  }
+
+  .float-tag {
+    font-size: 10px;
+    padding: 8px 9px;
+    gap: 6px;
+  }
+
+  .float-tag img {
+    width: 20px;
+    height: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="custom-cursor" id="customCursor" aria-hidden="true"></div>
+<div class="custom-cursor-dot" id="customCursorDot" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:91%">
+    <a class="brand" href="#home">
+      <span class="monogram">Ralph Lauren</span>
+      
+    </a>
+
+    <nav class="links" id="navLinks">
+      <a class="active" href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#github">GitHub</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a class="github-btn" href="https://github.com/Ralph12178" target="_blank" rel="noreferrer">◉ &nbsp; View GitHub ↗</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+  </div>
+</header>
+
+<main class="wrap" id="home">
+
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Hello, I'm</span>
+
+      <h1>
+        <span class="gradient-text">Ralph Lauren</span><br>
+        Gregorio
+      </h1>
+
+      <p class="subline">UI/UX Designer &nbsp; | &nbsp; BSCOE Student &nbsp; | &nbsp; 4th Year</p>
+
+      <p class="intro">I create User-Friendly UI design not much of a professional but I can make it look good.</p>
+
+      <div class="hero-actions">
+        <a class="pill-btn" href="https://github.com/Ralph12178" target="_blank" rel="noreferrer">◉ &nbsp; GitHub &nbsp; ↗</a>
+        <a class="pill-btn" href="mailto:ralph.gregorio1234@gmail.com">✉ &nbsp; Email &nbsp; ↗</a>
+        <a class="pill-btn" href="https://www.figma.com/" target="_blank" rel="noreferrer">✣ &nbsp; Figma &nbsp; ↗</a>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-label="Designer portrait and floating labels">
+      <div class="orb"></div>
+
+      <!-- PROFILE IMAGE:
+           Put your photo in an "images" folder.
+           Rename it to profile.png, or change the path below. -->
+      <div class="avatar">
+        <img
+          src="images/Profile.jpg"
+          alt="Ralph Lauren Gregorio"
+          class="profile-image"
+        >
+      </div>
+
+      <span class="star star-a">✦</span>
+      <span class="star star-b">✧</span>
+    </div>
+  </section>
+
+  <section class="overview">
+
+    <article class="about" id="about">
+      <h2 class="section-title"><span class="ico">♧</span> About Me</h2>
+
+      <p>Hi! I'm Ralph Lauren Gregorio, a 4th-year BSCOE student at ICCT Colleges. I'm passionate about UI/UX design and creating user-friendly digital experiences and am also a beginner. I enjoy Designing of what comes to my mind.</p>
+
+      <p>When I'm bored, I love playing games, listening to music, drawing anime, and watching anime. These hobbies keep me creative and inspired.</p>
+
+      <div class="chips">
+        <span class="chip">✦ UI/UX Design</span>
+        <span class="chip">🎮 Gaming</span>
+        <span class="chip">♫ Music</span>
+        <span class="chip">✧ Anime</span>
+      </div>
+    </article>
+
+    <article id="skills">
+      <h2 class="section-title"><span class="ico">✥</span> Skills</h2>
+
+      <div class="skills-grid">
+        <div class="skill">
+          <div class="skill-icon">✣</div>
+          <h3>Figma</h3>
+          <p>UI/UX Design<br>&amp; Prototyping</p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">▣</div>
+          <h3>UI Design</h3>
+          <p>User-Friendly,<br>Visual Design, User Flow</p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">♙</div>
+          <h3>Tradition Anime Artist </h3>
+          <p>Portrait &amp; Creative</p>
+        </div>
+      </div>
+
+      <div class="chips">
+        <span class="chip">Drawing</span>
+        <span class="chip">Prototyping</span>
+        <span class="chip">User-Friendly</span>
+        <span class="chip">Visual Design</span>
+        <span class="chip">Communication</span>
+      </div>
+    </article>
+
+    <aside class="cta">
+      <h3>You can message me<br>on Facebook</h3>
+      <p> just a friendly chat.</p>
+      <a class="pill-btn" href="https://www.facebook.com/ralph.lauren.gregorio.2024">Get in Touch &nbsp; →</a>
+    </aside>
+
+  </section>
+
+  <section class="projects" id="projects">
+    <h2 class="section-title"><span class="ico">▱</span> Featured Projects</h2>
+
+    <div class="project-grid">
+
+    
+    <article class="project">
+  
+  <style>
+.project-floorplan.autocad {
+   width: 100px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.floorplan-project-image {
+  width: 100px;
+  height: 150px;
+  object-fit: contain;
+  display: block;
+}
+</style>
+
+  <div class="project-floorplan autocad">
+    <img
+      src="images/Floorplan.png"
+      alt="Synced N application logo"
+      class="floorplan-project-image"
+    >
+  </div>
+
+  <div>
+    <h3>Tecno <span class="type">Floorplan</span></h3>
+
+    <p>
+      My Floorplan for our group in Tecnopreneur 
+    </p>
+
+    <div class="project-bottom">
+      <div class="chips">
+        <span class="chip">Autocad</span>
+        <span class="chip">Floorplan</span>
+       
+      </div>
+
+      
+    </div>
+  </div>
+</article>
+
+<article class="project">
+  
+  <style>
+.project-art.synced {
+   width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.synced-project-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  display: block;
+}
+</style>
+
+  <div class="project-art synced">
+    <img
+      src="images/Sync N icon.png"
+      alt="Synced N application logo"
+      class="synced-project-image"
+    >
+  </div>
+
+  <div>
+    <h3>Synced N <span class="type">Mobile App</span></h3>
+
+    <p>
+      An Android mobile application designed to help church music
+      ministries manage worship schedules, assign team roles,
+      organize song lineups, share lyrics and chords, communicate
+      with members, and receive real-time updates.
+    </p>
+
+    <div class="project-bottom">
+      <div class="chips">
+        <span class="chip">Android</span>
+        <span class="chip">UI/UX</span>
+        <span class="chip">Figma</span>
+      </div>
+
+      <a
+        class="project-link"
+        href="https://www.figma.com/design/aOYM9HLDsxiGxgw1KixK60/Untitled?node-id=22-87&t=DUK1HI8eQUeoN4lj-1"
+        target="_blank"
+        rel="noopener noreferrer"
+      >View Project ↗</a>
+    </div>
+  </div>
+</article>
+
+
+   
+<article class="project">
+ <style>
+
+.anime-art {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.anime-project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 10px;
+}
+
+</style>
+  <div class="project-art anime-art">
+    <img
+      src="images/Kasane Teto 2.jpg"
+      alt="Anime drawing portrait artwork"
+      class="anime-project-image"
+    >
+  </div>
+
+  <div class="project-info">
+    <h3>
+      Anime Drawing Portrait
+      <span class="type">Traditional Art</span>
+    </h3>
+
+    <p>
+      A collection of my anime-inspired portrait drawings that
+      showcases my creativity, artistic style, and passion for
+      traditional art.
+    </p>
+
+    <div class="project-bottom">
+      <div class="chips">
+        <span class="chip">Anime</span>
+        <span class="chip">Traditional Art</span>
+        <span class="chip">Portrait</span>
+      </div>
+
+      <a
+        class="project-link"
+        href="https://github.com/Ralph12178"
+        target="_blank"
+        rel="noopener noreferrer"
+      >View GitHub ↗</a>
+    </div>
+  </div>
+
+</article>
+
+
+    </div>
+  </section>
+
+  <section class="lower">
+
+    <article class="panel" id="education">
+      <h2 class="panel-title"><span>♟</span> Education</h2>
+
+      <div class="school">
+        <div class="school-logo">ICCT<br>COLLEGES</div>
+
+        <div>
+          <strong>ICCT Colleges</strong>
+          <small>BSCOE (Bachelor of Science in Computer Engineering)</small>
+          <small style="color:#d4a5ff;margin-top:5px">4th Year</small>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel" id="github">
+      <h2 class="panel-title"><span>◉</span> GitHub Activity</h2>
+
+      <div class="github-head">
+        <div class="github-avatar">◉</div>
+
+        <div>
+          <strong>Ralph12178</strong>
+          <small>github.com/Ralph12178</small>
+        </div>
+      </div>
+
+      <div class="github-data">
+        <div class="stat">
+          <small>Repositories</small>
+          <strong>2</strong>
+        </div>
+
+        <div class="stat">
+          <small>Followers</small>
+          <strong>0</strong>
+        </div>
+
+        <div class="stat">
+          <small>Following</small>
+          <strong>0</strong>
+        </div>
+      </div>
+
+      <div class="heatmap" aria-label="Decorative GitHub activity grid"></div>
+
+      <div style="text-align:right;margin-top:8px">
+        <a class="project-link" href="https://github.com/Ralph12178" target="_blank" rel="noreferrer">Explore profile ↗</a>
+      </div>
+    </article>
+
+    <article class="panel contact-panel" id="contact">
+      <h2 class="panel-title"><span>➤</span> Get in Touch</h2>
+
+      <div class="contact-list">
+        <a href="mailto:ralph.gregorio1234@gmail.com">
+          <span>✉</span>ralph.gregorio1234@gmail.com
+        </a>
+
+        <a href="https://github.com/Ralph12178" target="_blank" rel="noreferrer">
+          <span>◉</span>github.com/Ralph12178
+        </a>
+
+        <a href="https://www.figma.com/" target="_blank" rel="noreferrer">
+          <span>✣</span>Figma portfolio
+        </a>
+      </div>
+    </article>
+
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+
+    <div class="footer-main">
+      <div class="footer-name">
+        <span class="monogram" style="font-size:31px"></span>
+
+        <div>
+          <strong>Ralph Lauren Gregorio</strong>
+          <small>UI/UX Designer · BSCOE Student · 4th Year</small>
+        </div>
+      </div>
+
+      <div class="quote">“If you think the UI design is appealing,<br>just put it like that I guess.”</div>
+
+      <div class="socials">
+        <a href="https://github.com/Ralph12178" aria-label="GitHub" target="_blank" rel="noreferrer">◉</a>
+        <a href="mailto:ralph.gregorio1234@gmail.com" aria-label="Email">✉</a>
+        <a href="https://www.figma.com/" aria-label="Figma" target="_blank" rel="noreferrer">✣</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Ralph Lauren Gregorio. All rights reserved.</span>
+
+      <nav class="footer-nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#github">GitHub</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+
+// Animated violet cursor: enabled only for mouse/trackpad devices.
+const cursorRing = document.getElementById('customCursor');
+const cursorDot = document.getElementById('customCursorDot');
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+if (cursorRing && cursorDot && finePointer.matches) {
+  document.body.classList.add('custom-cursor-enabled');
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let ringX = mouseX;
+  let ringY = mouseY;
+  let cursorVisible = false;
+
+  window.addEventListener('mousemove', (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+
+    if (!cursorVisible) {
+      cursorRing.style.opacity = '1';
+      cursorDot.style.opacity = '1';
+      cursorVisible = true;
+    }
+
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top = mouseY + 'px';
+  });
+
+  function animateCursor() {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  document.querySelectorAll('a, button, .project, .skill, .chip').forEach((item) => {
+    item.addEventListener('mouseenter', () => cursorRing.classList.add('cursor-hover'));
+    item.addEventListener('mouseleave', () => cursorRing.classList.remove('cursor-hover'));
+  });
+
+  window.addEventListener('mousedown', () => cursorRing.classList.add('cursor-click'));
+  window.addEventListener('mouseup', () => cursorRing.classList.remove('cursor-click'));
+  document.addEventListener('mouseleave', () => {
+    cursorRing.style.opacity = '0';
+    cursorDot.style.opacity = '0';
+    cursorVisible = false;
+  });
+  document.addEventListener('mouseenter', () => {
+    if (cursorVisible) {
+      cursorRing.style.opacity = '1';
+      cursorDot.style.opacity = '1';
+    }
+  });
+}
+
+const toggle = document.getElementById('menuToggle');
+const links = document.getElementById('navLinks');
+
+toggle.addEventListener('click', () => {
+  links.classList.toggle('open');
+});
+
+links.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    links.classList.remove('open');
+
+    links.querySelectorAll('a').forEach(x => {
+      x.classList.remove('active');
+    });
+
+    a.classList.add('active');
+  });
+});
+
+const heat = document.querySelector('.heatmap');
+
+for (let i = 0; i < 84; i++) {
+  const cell = document.createElement('i');
+  heat.appendChild(cell);
+}
+</script>
+
+</body>
+</html>
